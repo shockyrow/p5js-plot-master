@@ -9,7 +9,7 @@ function getCanvasWidth() {
 }
 
 function getCanvasHeight() {
-  return windowHeight - SKETCH_MARGIN * 2;
+  return windowHeight - SKETCH_MARGIN * 2 - 64;
 }
 
 function f(x) {
