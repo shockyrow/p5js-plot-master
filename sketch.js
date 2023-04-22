@@ -16,13 +16,13 @@ function f(x) {
   try {
     return eval(functionInput.value());
   } catch (e) {
-    return 0
+    return 0;
   }
 }
 
 function setup() {
   createCanvas(getCanvasWidth(), getCanvasHeight());
-  functionInput = createInput('Math.sin(x) + (Math.sin(x * 100) / 5)');
+  functionInput = createInput('(x > 0 ? Math.log2(x) : 1 / -x) + Math.sin(x)');
   sampling = createSlider(1, 100, 100, 1);
   scale = createSlider(20, 250, 100, 1);
 }
@@ -41,20 +41,36 @@ function draw() {
   strokeWeight(4);
   fill(255);
   textAlign(CENTER, TOP);
-  for (let i = scale.value(), j = 1; i < getCanvasWidth() / 2; i += scale.value(), j++) {
+  for (
+    let i = scale.value(), j = 1;
+    i < getCanvasWidth() / 2;
+    i += scale.value(), j++
+  ) {
     point(i, 0);
     text(j, i, 8);
   }
-  for (let i = -scale.value(), j = -1; i > -getCanvasWidth() / 2; i -= scale.value(), j--) {
+  for (
+    let i = -scale.value(), j = -1;
+    i > -getCanvasWidth() / 2;
+    i -= scale.value(), j--
+  ) {
     point(i, 0);
     text(j, i, 8);
   }
   textAlign(LEFT, CENTER);
-  for (let i = scale.value(), j = -1; i < getCanvasHeight() / 2; i += scale.value(), j--) {
+  for (
+    let i = scale.value(), j = -1;
+    i < getCanvasHeight() / 2;
+    i += scale.value(), j--
+  ) {
     point(0, i);
     text(j, 8, i);
   }
-  for (let i = -scale.value(), j = 1; i > -getCanvasHeight() / 2; i -= scale.value(), j++) {
+  for (
+    let i = -scale.value(), j = 1;
+    i > -getCanvasHeight() / 2;
+    i -= scale.value(), j++
+  ) {
     point(0, i);
     text(j, 8, i);
   }
@@ -63,7 +79,11 @@ function draw() {
   beginShape();
   noFill();
 
-  for (let i = -getCanvasWidth() / 2; i < getCanvasWidth() / 2; i += scale.value() / sampling.value()) {
+  for (
+    let i = -getCanvasWidth() / 2;
+    i < getCanvasWidth() / 2;
+    i += scale.value() / sampling.value()
+  ) {
     const x = i / scale.value();
     const y = f(x);
 
@@ -84,7 +104,7 @@ function draw() {
   fill(255);
   noStroke();
   textAlign(CENTER, BASELINE);
-  text(Math.round(-y / scale.value() * 100) / 100, x, y - 16);
+  text(Math.round((-y / scale.value()) * 100) / 100, x, y - 16);
 
   pop();
 }
