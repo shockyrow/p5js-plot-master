@@ -22,8 +22,8 @@ function f(x) {
 
 function setup() {
   createCanvas(getCanvasWidth(), getCanvasHeight());
-  functionInput = createInput('x > 0 ? Math.sin(x) : x * x');
-  sampling = createSlider(1, 10, 10, 1);
+  functionInput = createInput('Math.sin(x) + (Math.sin(x * 100) / 5)');
+  sampling = createSlider(1, 100, 100, 1);
   scale = createSlider(20, 250, 100, 1);
 }
 
@@ -63,11 +63,16 @@ function draw() {
   beginShape();
   noFill();
 
-  for (let i = -getCanvasWidth() / 2; i < getCanvasWidth() / 2; i += 1 / sampling.value()) {
-    const x = i;
+  for (let i = -getCanvasWidth() / 2; i < getCanvasWidth() / 2; i += scale.value() / sampling.value()) {
+    const x = i / scale.value();
     const y = f(x);
 
-    vertex(x * scale.value(), -y * scale.value());
+    if (Math.abs(x - 0) > 1e-2) {
+      vertex(x * scale.value(), -y * scale.value());
+    } else {
+      endShape();
+      beginShape();
+    }
   }
 
   endShape();
