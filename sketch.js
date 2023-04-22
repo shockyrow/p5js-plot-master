@@ -27,6 +27,10 @@ function setup() {
   scale = createSlider(20, 250, 100, 1);
 }
 
+function windowResized() {
+  resizeCanvas(getCanvasWidth(), getCanvasHeight());
+}
+
 function draw() {
   background(24);
   push();
